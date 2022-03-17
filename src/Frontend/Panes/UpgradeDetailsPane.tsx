@@ -2,6 +2,7 @@ import { isUnconfirmedUpgradeTx } from '@darkforest_eth/serde';
 import { LocationId, Planet, PlanetType, UpgradeBranchName } from '@darkforest_eth/types';
 import React from 'react';
 import styled from 'styled-components';
+import GameUIManager from '../../Backend/GameLogic/GameUIManager';
 import {
   getPlanetMaxRank,
   getPlanetRank,
@@ -64,6 +65,14 @@ function SilverRequired({ planet }: { planet: Planet }) {
   );
 }
 
+const isUpgradeablePlanet = (
+  uiManager: GameUIManager,
+  planetType: PlanetType,
+): boolean => {
+  const upgradeablePlanets = uiManager.getGameManager().getContractConstants().UPGRADEABLE_PLANETS;
+  return upgradeablePlanets[planetType];
+}
+
 export function UpgradeDetailsPane({
   initialPlanetId,
   modal: _modal,
@@ -79,7 +88,7 @@ export function UpgradeDetailsPane({
 
   if (planet && account) {
     if (planet.owner !== account) {
-    } else if (planet.planetType !== PlanetType.PLANET || planet.silverCap === 0) {
+    } else if (!isUpgradeablePlanet(uiManager, planet.planetType) || planet.silverCap === 0) {
       return (
         <CenterBackgroundSubtext width='100%' height='75px'>
           This Planet <br /> is not Upgradeable

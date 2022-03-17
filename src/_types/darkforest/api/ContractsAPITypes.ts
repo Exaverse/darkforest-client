@@ -307,7 +307,13 @@ export interface ContractConstants {
   ];
   CAPTURE_ZONE_HOLD_BLOCKS_REQUIRED: number;
   CAPTURE_ZONES_PER_5000_WORLD_RADIUS: number;
-  UPGRADEABLE_PLANETS: boolean[];
+  UPGRADEABLE_PLANETS: [
+    boolean,
+    boolean,
+    boolean,
+    boolean,
+    boolean,
+  ];
 }
 
 export type ClientMockchainData =

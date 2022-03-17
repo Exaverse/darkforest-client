@@ -777,6 +777,16 @@ export function lobbyConfigInit(startingConfig: LobbyInitializers) {
         };
         break;
       }
+      case 'UPGRADEABLE_PLANETS': {
+        const defaultValue = startingConfig[key];
+        state[key] = {
+          currentValue: defaultValue,
+          displayValue: defaultValue,
+          defaultValue,
+          warning: undefined,
+        };
+        break;
+      }
       default: {
         // https://www.typescriptlang.org/docs/handbook/2/narrowing.html#exhaustiveness-checking
         const _exhaustive: never = key;
